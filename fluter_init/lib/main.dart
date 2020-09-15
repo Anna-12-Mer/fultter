@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 void main() {
   runApp(MyApp());
@@ -78,22 +79,34 @@ class _MyHomePageState extends State<MyHomePage> {
     //   addAutomaticKeepAlives: false,
     // );
     final title = 'Grid List';
+    final image = "Fade in images";
     return MaterialApp(
       title: title,
       home: Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(image),
         ),
-        body: GridView.count(
-          crossAxisCount: 3,
-          children: List.generate(100, (index) {
-            return Center(
-              child: Text(
-                'Item $index',
-                style: Theme.of(context).textTheme.headline5,
+        // body: GridView.count(
+        //   crossAxisCount: 3,
+        //   children: List.generate(100, (index) {
+        //     return Center(
+        //       child: Text(
+        //         'Item $index',
+        //         style: Theme.of(context).textTheme.headline5,
+        //       ),
+        //     );
+        //   }),
+        // ),
+        body: Stack(
+          children: <Widget>[
+            Center(child: CircularProgressIndicator()),
+            Center(
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: 'https://picsum.photos/250?image=9',
               ),
-            );
-          }),
+            ),
+          ],
         ),
       ),
     );
