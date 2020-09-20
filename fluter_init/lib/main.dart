@@ -1,111 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import './question.dart'; 
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    // Nav-bar
-    return MaterialApp(
-      title: 'Flutter Init',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo List View Page'),
-    );
+  State<StatefulWidget> createState(){
+    return _MyAppState ();
   }
 }
 
-// body
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+//Create Widget 'evry wedget is a class in Dart language'/ based class
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+class _MyAppState extends State<MyApp> {
+  var _questionsIndex = 0;
 
-class _MyHomePageState extends State<MyHomePage> {
+  void _answerQuestions() {
+    //call the buil again !
+    setState((){
+      _questionsIndex = _questionsIndex + 1;
+    });
+    print(_questionsIndex);
+  } 
+
   @override
   Widget build(BuildContext context) {
-    // return ListView(
-    //   padding: const EdgeInsets.all(8),
-    //   children: <Widget>[
-    //     Container(
-    //       alignment: Alignment.center,
-    //       height: 50,
-    //       color: Colors.blue[300],
-    //       child: const Center(child: Text('Hello')),
-    //       constraints: BoxConstraints(
-    //         maxHeight: 400,
-    //         maxWidth: 400,
-    //         minHeight: 100,
-    //         minWidth: 100,
-    //       ),
-    //     ),
-    //     Container(
-    //       alignment: Alignment.center,
-    //       height: 50,
-    //       color: Colors.blue[200],
-    //       child: const Center(child: Text(' Flutter')),
-    //       constraints: BoxConstraints(
-    //         maxHeight: 400,
-    //         maxWidth: 400,
-    //         minHeight: 100,
-    //         minWidth: 100,
-    //       ),
-    //     ),
-    //     Container(
-    //       alignment: Alignment.center,
-    //       height: 50,
-    //       color: Colors.amber[100],
-    //       child: const Center(
-    //           child: FlutterLogo(
-    //         size: 200,
-    //       )),
-    //       constraints: BoxConstraints(
-    //         maxHeight: 400,
-    //         maxWidth: 400,
-    //         minHeight: 100,
-    //         minWidth: 100,
-    //       ),
-    //     ),
-    //   ],
-    //   addAutomaticKeepAlives: false,
-    // );
-    final title = 'Grid List';
-    final image = "Fade in images";
+    var questions = [
+      'What\'s your favorite color?',
+      'What\'s your favorite animals?'
+    ];
     return MaterialApp(
-      title: title,
       home: Scaffold(
         appBar: AppBar(
-          title: Text(image),
+          title: Text('My First App'),
         ),
-        // body: GridView.count(
-        //   crossAxisCount: 3,
-        //   children: List.generate(100, (index) {
-        //     return Center(
-        //       child: Text(
-        //         'Item $index',
-        //         style: Theme.of(context).textTheme.headline5,
-        //       ),
-        //     );
-        //   }),
-        // ),
-        body: Stack(
-          children: <Widget>[
-            Center(child: CircularProgressIndicator()),
-            Center(
-              child: FadeInImage.memoryNetwork(
-                placeholder: kTransparentImage,
-                image: 'https://picsum.photos/250?image=9',
-              ),
+        body: Column(
+          children: [
+            Question(questions[_questionsIndex]),
+            RaisedButton(
+              child: Text('Answer 1'),
+              onPressed: _answerQuestions,
             ),
+            RaisedButton(
+              child: Text('Answer 2'),
+              onPressed: _answerQuestions,
+            ),
+            RaisedButton(
+              child: Text('Answer 3'),
+              onPressed: _answerQuestions,
+            )
           ],
         ),
       ),
